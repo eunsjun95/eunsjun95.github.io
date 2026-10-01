@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Keeps the site out of Google and other search engines -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Eunseong Jun, Ph.D. student in Physics at The Ohio State University.">
+<title>Eunseong Jun</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: sticky identity column on the left, a single reading column on the right; stacks on phones. */
+:root {
+  --bg: #f5f7f9;
+  --surface: #ffffff;
+  --fg: #17202a;
+  --muted: #5a6875;
+  --line: #d9e0e6;
+  --accent: #1f6f8b;      /* objective-lens teal */
+  --donor: #2f9e57;       /* Cy3 green */
+  --acceptor: #c8414b;    /* Cy5 red */
+  --display: "Literata", Georgia, "Times New Roman", serif;
+  --body: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f151b; --surface: #161e26; --fg: #e4e9ee; --muted: #93a1ae; --line: #26323d;
+    --accent: #5bb4d1; --donor: #5ccf86; --acceptor: #ef6f78; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f151b; --surface: #161e26; --fg: #e4e9ee; --muted: #93a1ae; --line: #26323d;
+  --accent: #5bb4d1; --donor: #5ccf86; --acceptor: #ef6f78; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+img { max-width: 100%; }
+body {
+  background: var(--bg); color: var(--fg);
+  font: 400 1rem/1.6 var(--body);
+  padding-inline: 16px; padding-block: 0;
+}
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+
+.wrap {
+  max-width: 1080px; margin: 0 auto;
+  display: grid; grid-template-columns: 290px minmax(0, 1fr); gap: 64px;
+  padding-block: 56px 80px;
+}
+
+/* ---------- identity column ---------- */
+.id { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 40px); align-self: start; display: grid; gap: 22px; }
+.name { font: 600 2.4rem/1.05 var(--display); letter-spacing: -0.015em; margin: 0; text-wrap: balance; }
+.role { margin: 0; color: var(--muted); }
+.role strong { color: var(--fg); font-weight: 500; }
+.eyebrow { font: 500 0.72rem/1 var(--mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin: 0; }
+
+.contact { display: grid; gap: 8px; }
+.email-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.email { font: 400 0.85rem/1.3 var(--mono); user-select: all; word-break: break-all; }
+.copy {
+  font: 500 0.75rem/1 var(--body); color: var(--accent); background: transparent;
+  border: 1px solid var(--line); border-radius: 999px; padding: 5px 10px; cursor: pointer;
+}
+.copy:hover { border-color: var(--accent); }
+
+nav ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; border-left: 1px solid var(--line); }
+nav a { display: block; padding: 4px 0 4px 14px; color: var(--muted); text-decoration: none; font-size: 0.92rem; margin-left: -1px; border-left: 2px solid transparent; }
+nav a:hover { color: var(--fg); border-left-color: var(--accent); }
+
+/* ---------- trace figure ---------- */
+.trace { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 14px 14px 10px; }
+.trace canvas { display: block; width: 100%; height: 120px; }
+.legend { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 8px; font: 400 0.7rem/1.3 var(--mono); color: var(--muted); }
+.legend i { display: inline-block; width: 10px; height: 2px; vertical-align: middle; margin-right: 6px; }
+.caption { font: 400 0.72rem/1.45 var(--mono); color: var(--muted); margin: 6px 0 0; }
+
+/* ---------- main column ---------- */
+main { min-width: 0; display: grid; gap: 64px; }
+section { display: grid; gap: 22px; scroll-margin-top: 32px; }
+h2 { font: 600 1.45rem/1.2 var(--display); margin: 0; text-wrap: balance; display: flex; align-items: baseline; gap: 12px; }
+h2::after { content: ""; flex: 1; height: 1px; background: var(--line); transform: translateY(-4px); }
+
+.lede { font: 400 1.18rem/1.55 var(--display); max-width: 62ch; margin: 0; }
+.lede em { font-style: normal; color: var(--accent); }
+
+.entries { display: grid; gap: 28px; }
+.entry { display: grid; grid-template-columns: 148px minmax(0, 1fr); gap: 20px; }
+.when { font: 400 0.8rem/1.6 var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; padding-top: 2px; }
+.what h3 { font: 600 1.02rem/1.4 var(--body); margin: 0; }
+.where { color: var(--muted); margin: 2px 0 0; font-size: 0.93rem; }
+.what ul { margin: 10px 0 0; padding-left: 1.1em; display: grid; gap: 6px; max-width: 64ch; }
+.what li::marker { color: var(--accent); }
+
+.tag {
+  display: inline-block; font: 500 0.66rem/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--accent); border: 1px solid var(--accent); border-radius: 999px; padding: 4px 8px; margin-left: 8px; vertical-align: 2px;
+}
+
+.cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+.cols h3 { font: 500 0.72rem/1 var(--mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
+.cols ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+
+footer { color: var(--muted); font-size: 0.82rem; border-top: 1px solid var(--line); padding-top: 18px; }
+
+@media (max-width: 860px) {
+  .wrap { grid-template-columns: minmax(0, 1fr); gap: 48px; padding-block: 36px 64px; }
+  .id { position: static; }
+  nav { display: none; }
+}
+@media (max-width: 560px) {
+  .entry { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+  .cols { grid-template-columns: minmax(0, 1fr); gap: 22px; }
+  .name { font-size: 2.05rem; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <aside class="id">
+    <div>
+      <p class="eyebrow">Biophysics · Ph.D. candidate</p>
+    </div>
+    <h1 class="name">Eunseong Jun</h1>
+    <p class="role"><strong>Department of Physics, The Ohio State University</strong><br>Poirier Lab · Columbus, OH</p>
+
+    <div class="contact">
+      <p class="eyebrow">Email</p>
+      <div class="email-row">
+        <span class="email" id="email">jun.91@buckeyemail.osu.edu</span>
+        <button class="copy" id="copy-email" type="button">Copy</button>
+      </div>
+    </div>
+
+    <figure class="trace" aria-label="Illustrative single-molecule FRET trace">
+      <canvas id="trace"></canvas>
+      <div class="legend"><span><i style="background:var(--donor)"></i>donor</span><span><i style="background:var(--acceptor)"></i>acceptor</span></div>
+      <figcaption class="caption">Illustrative smFRET trace: DNA unwrapping and rewrapping switches energy between dyes.</figcaption>
+    </figure>
+
+    <nav aria-label="Sections">
+      <ul>
+        <li><a href="#research">Research</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#talks">Talks &amp; posters</a></li>
+        <li><a href="#teaching">Teaching</a></li>
+        <li><a href="#more">Skills &amp; more</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <main>
+    <section id="research" aria-labelledby="h-research">
+      <h2 id="h-research">Research</h2>
+      <p class="lede">I use single-molecule fluorescence to watch how <em>nucleosomes</em> open and close, and how transcription factors, histone modifications and a cancer fusion protein change that motion.</p>
+
+      <div class="entries">
+        <div class="entry">
+          <div class="when">May 2023 – now</div>
+          <div class="what">
+            <h3>Ph.D. research</h3>
+            <p class="where">Supervisor: Prof. Michael Poirier, The Ohio State University</p>
+            <ul>
+              <li>Single-molecule measurements of nucleosome kinetics in the presence of a transcription factor, with and without the SAGA and ATAC histone acetyltransferase (HAT) modules.</li>
+              <li>Effects of post-translational modifications (PTMs) on nucleosome kinetics in response to transcription factor binding, measured by TIRF microscopy.</li>
+              <li>Nucleosomal DNA unwrapping and rewrapping rates in response to the cancer fusion protein EWS::FLI.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="entry">
+          <div class="when">Jan – May 2020</div>
+          <div class="what">
+            <h3>Undergraduate research</h3>
+            <p class="where">Stony Brook University</p>
+            <ul>
+              <li>Built a terahertz (THz) microscope to observe cancer cells.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience" aria-labelledby="h-exp">
+      <h2 id="h-exp">Industry &amp; internships</h2>
+      <div class="entries">
+        <div class="entry">
+          <div class="when">Jan – Dec 2017</div>
+          <div class="what">
+            <h3>Intern, JnL Tech Inc.</h3>
+            <ul>
+              <li>Developed a scratch tester to evaluate thin-film adhesion and mechanical durability.</li>
+              <li>English–Korean interpreter for international client communications.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="entry">
+          <div class="when">May – Aug 2014</div>
+          <div class="what">
+            <h3>Intern, Korea Institute of Science and Technology (KIST)</h3>
+            <ul>
+              <li>Wrote a user manual for plasma-enhanced chemical vapor deposition (PECVD).</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="education" aria-labelledby="h-edu">
+      <h2 id="h-edu">Education</h2>
+      <div class="entries">
+        <div class="entry">
+          <div class="when">Aug 2022 – now</div>
+          <div class="what">
+            <h3>Ph.D. in Physics</h3>
+            <p class="where">The Ohio State University, Columbus, OH · GPA 3.75 / 4.0</p>
+          </div>
+        </div>
+        <div class="entry">
+          <div class="when">Aug 2014 – May 2020</div>
+          <div class="what">
+            <h3>B.S. in Physics</h3>
+            <p class="where">Stony Brook University (SUNY), NY · GPA 3.49 / 4.0</p>
+            <ul><li>Honors in Physics, awarded by the Department of Physics (May 2020)</li></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="talks" aria-labelledby="h-talks">
+      <h2 id="h-talks">Talks &amp; posters</h2>
+      <div class="entries">
+        <div class="entry">
+          <div class="when">Feb 2027</div>
+          <div class="what"><h3>Biophysical Society Annual Meeting (BPS)<span class="tag">Upcoming</span></h3></div>
+        </div>
+        <div class="entry">
+          <div class="when">Sep 2017</div>
+          <div class="what"><h3>Asian-European International Conference on Plasma Surface Engineering (AEPSE)</h3></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="teaching" aria-labelledby="h-teach">
+      <h2 id="h-teach">Teaching</h2>
+      <div class="entries">
+        <div class="entry">
+          <div class="when">Fall 2023</div>
+          <div class="what"><h3>Lab &amp; Recitation TA, Physics 1250</h3><p class="where">OSU Department of Physics</p></div>
+        </div>
+        <div class="entry">
+          <div class="when">Spring 2023, 2024</div>
+          <div class="what"><h3>Grading TA, Physics 2301</h3><p class="where">OSU Department of Physics</p></div>
+        </div>
+        <div class="entry">
+          <div class="when">Fall 2022</div>
+          <div class="what"><h3>Grading TA, Physics 2300</h3><p class="where">OSU Department of Physics</p></div>
+        </div>
+        <div class="entry">
+          <div class="when">Outreach</div>
+          <div class="what"><h3>Scientific Thinkers</h3><p class="where">Volunteer running hands-on experiments that bring STEM to elementary school students.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="more" aria-labelledby="h-more">
+      <h2 id="h-more">Skills &amp; languages</h2>
+      <div class="cols">
+        <div><h3>Analysis</h3><ul><li>Python</li><li>MATLAB</li><li>Mathematica</li><li>Excel</li></ul></div>
+        <div><h3>Tools</h3><ul><li>TIRF microscopy</li><li>ImageJ</li><li>Prism</li><li>SnapGene</li><li>LaTeX</li></ul></div>
+        <div><h3>Languages</h3><ul><li>Korean (native)</li><li>English (bilingual)</li></ul></div>
+      </div>
+    </section>
+
+    <footer>Eunseong Jun · Department of Physics, The Ohio State University</footer>
+  </main>
+</div>
+
+<script>
+(function () {
+  // Copy email
+  var btn = document.getElementById('copy-email');
+  btn.addEventListener('click', function () {
+    var text = document.getElementById('email').textContent;
+    function selectIt() {
+      var r = document.createRange(); r.selectNodeContents(document.getElementById('email'));
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+    }
+    try {
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy'; }, 1600);
+      }, selectIt);
+    } catch (e) { selectIt(); }
+  });
+
+  // Illustrative two-state smFRET trace (seeded, so it looks the same every load)
+  var seed = 7;
+  function rand() { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
+  var N = 260, states = [], s = 1;
+  for (var i = 0; i < N; i++) {
+    if (rand() < (s ? 0.035 : 0.06)) s = 1 - s;
+    if (i > 228) s = -1; // acceptor photobleaches
+    states.push(s);
+  }
+  var noiseD = [], noiseA = [];
+  for (var j = 0; j < N; j++) { noiseD.push(rand() - 0.5); noiseA.push(rand() - 0.5); }
+
+  var cv = document.getElementById('trace');
+  function draw() {
+    var css = getComputedStyle(document.documentElement);
+    var dpr = window.devicePixelRatio || 1;
+    var w = cv.clientWidth, h = cv.clientHeight;
+    cv.width = w * dpr; cv.height = h * dpr;
+    var ctx = cv.getContext('2d'); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+    ctx.strokeStyle = css.getPropertyValue('--line').trim(); ctx.lineWidth = 1;
+    for (var g = 1; g < 4; g++) { ctx.beginPath(); ctx.moveTo(0, g * h / 4 + 0.5); ctx.lineTo(w, g * h / 4 + 0.5); ctx.stroke(); }
+    function line(color, fn) {
+      ctx.strokeStyle = color; ctx.lineWidth = 1.25; ctx.beginPath();
+      for (var k = 0; k < N; k++) {
+        var x = k / (N - 1) * w, y = h - 6 - fn(k) * (h - 12);
+        k ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+      }
+      ctx.stroke();
+    }
+    // wrapped (s=1): high FRET -> low donor, high acceptor
+    line(css.getPropertyValue('--donor').trim(), function (k) {
+      var b = states[k] === 1 ? 0.25 : states[k] === 0 ? 0.62 : 0.8; return b + noiseD[k] * 0.12;
+    });
+    line(css.getPropertyValue('--acceptor').trim(), function (k) {
+      var b = states[k] === 1 ? 0.72 : states[k] === 0 ? 0.36 : 0.05; return b + noiseA[k] * 0.12;
+    });
+  }
+  draw();
+  window.addEventListener('resize', draw);
+  try { window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', draw); } catch (e) {}
+  new MutationObserver(draw).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
+})();
+</script>
+
+</body>
+</html>
